@@ -1,0 +1,27 @@
+/*** SLIDER ***/
+*{
+	padding:0;
+	margin:0;
+	list-style: none;
+}
+html{
+	background: #0085B1;
+}
+img{
+	border: 0;
+}
+#outerslider{
+	width:1000px;margin: 0 auto;border: 10px solid #A6D4F2;border-radius: 20px;
+   margin-top: 50px;
+}
+#slidercontainer{position:relative; height:358px;}
+.box_skitter_large {width:1000px; height:358px;}
+.box_skitter_large .label_skitter{
+	bottom:0px;
+	left:0px ; 
+	padding:0; background:url(../images/opacity-slider-text.png) repeat;
+	font-size:12px;
+	padding:10px 30px;
+	color:#fff;
+	font-family:Arial, Helvetica, sans-serif;
+}

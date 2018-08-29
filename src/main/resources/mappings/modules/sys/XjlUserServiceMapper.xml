@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.idea.modules.onlineRep.mapper.XjlUserMapper">
+	<resultMap type="XJLUser" id="BaseResultMap">
+		  <id column="userId" property="id" jdbcType="VARCHAR" />
+		  <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+		  <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+		  <result column="PWD" property="pwd" jdbcType="VARCHAR" />
+		  <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+		  <result column="TELPHONE" property="telphone" jdbcType="VARCHAR" />
+		  <result column="ID_CARD" property="idCard" jdbcType="VARCHAR" />
+		  <result column="STATUS" property="status" jdbcType="VARCHAR" />
+		  <result column="PHOTO" property="phone" jdbcType="VARCHAR" />
+		  <result column="TYPE" property="type" jdbcType="VARCHAR" />
+		  <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		  <result column="NATION" property="nation" jdbcType="VARCHAR" />
+		  <result column="ACTIVATE_TYPE" property="activateType" jdbcType="VARCHAR" />
+		  <result column="ADDTIME" property="addtime" jdbcType="VARCHAR" />
+		  <result column="DEL_FLAG" property="delFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		a.USER_NAME,
+		a.LOGIN_NAME,
+		a.PWD,
+		a.EMAIL,
+		a.TELPHONE,
+		a.ID_CARD,
+		a.STATUS,
+		a.PHOTO,
+		a.TYPE,
+		a.ADDRESS,
+		a.NATION,
+		a.ACTIVATE_TYPE,
+		a.ADDTIME,
+		a.DEL_FLAG
+	</sql>
+	<select id="queryXjlUserList" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"/>
+		from XJL_XZWEB_USER a
+	</select>
+	<insert id="insertXjlUser">
+	
+		
+	</insert>
+</mapper>

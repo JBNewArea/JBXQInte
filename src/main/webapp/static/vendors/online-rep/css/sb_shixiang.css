@@ -1,0 +1,242 @@
+body{
+    background-color: #F1F1F1;
+}
+.top{
+    width: 100%;
+    height: 86px;
+    border-bottom: 4px solid #4178BE;
+    background-color: white;
+}
+.top .top_12{
+    width: 1200px;
+    height: 86px;
+    margin: 0 auto;
+}
+.top .top_12 .logo{
+    float: left;
+    display: block;
+    width: 246px;
+    height: 69px;
+    padding-top: 17px;
+}
+.top .top_12 .user_info{
+    float: right;
+    width: auto;
+    height: 40px;
+    margin-top: 46px;
+}
+.top .top_12 .user_info a{
+    display: block;
+    float: left;
+    width: auto;
+    max-width:140px;
+    height: 40px;
+    font-size: 15px;
+    line-height: 40px;
+    text-align: left;
+    color: #555555;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.top .top_12 .user_info button{
+    float: left;
+    width: 60px;
+    height: 40px;
+    font-size: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: #4178BE;
+}
+
+/*内容区*/
+.content{
+    width: 1160px;
+    height: 1320px;
+    background-color: white;
+    margin: 20px auto;
+    padding: 20px;
+}
+.content .cot_top{
+    width: 1160px;
+    height: 49px;
+    border-bottom: 2px solid #e4e6eb;
+}
+.content .cot_top h3{
+    float: left;
+    line-height: 49px;
+    color: #222222;
+    font-size: 18px;
+    background-image: url("../images/sbsx_icon.png");
+    background-repeat: no-repeat;
+    background-position: 6px center;
+    text-indent: 36px;
+}
+.content .cot_top .sea_box{
+    float: right;
+    height: 40px;
+}
+.content .cot_top .sea_box .xz_type{
+    width: 93px;
+    height: 40px;
+    float: left;
+}
+.content .cot_top .sea_box .xz_type .option_first{
+    width: 92px;
+    height: 38px;
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    line-height: 38px;
+    background-image: url("../images/san-icon.png");
+    background-repeat: no-repeat;
+    background-position: 75px top;
+    border: 1px solid #D4D4D4;
+    border-right: none;
+    cursor: pointer;
+}
+.content .cot_top .sea_box .xz_type .option{
+    width: 92px;
+    height: 38px;
+    font-size: 16px;
+    color: #666666;
+    text-align: center;
+    line-height: 38px;
+    border: 1px solid #D4D4D4;
+    border-top: none;
+    background-color: white;
+    cursor: pointer;
+    display: none;
+}
+.content .cot_top .sea_box input{
+    width: 329px;
+    height: 38px;
+    border: 1px solid #D4D4D4;
+    float: left;
+    outline: none;
+}
+.content .cot_top .sea_box button{
+    width: 85px;
+    height: 40px;
+    float: left;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    background-color: #4278BE;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+.content .cot_box{
+    width: 1160px;
+    height: auto;
+    padding-top: 10px;
+}
+.content .cot_box ul li{
+    width: 1108px;
+    height: 108px;
+    background-color: #F8F8F8;
+    border: solid 1px #f2f2f2;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-top: 8px;
+}
+.content .cot_box ul li .left_box{
+    float: left;
+    height: 108px;
+}
+.content .cot_box ul li .left_box h4{
+    font-size: 16px;
+    color: #222222;
+    margin-top: 20px;
+    background-image: url("../images/h4_icon.png");
+    background-repeat: no-repeat;
+    background-position: left center;
+    text-indent: 15px;
+    margin-bottom: 12px;
+}
+.content .cot_box ul li .left_box p{
+    font-size: 14px;
+    color: #666666;
+}
+.content .cot_box ul li .left_box .btm_text{
+     color: #999999;
+     margin-top: 8px;
+}
+.content .cot_box ul li .left_box .btm_text span{
+    margin-right: 24px;
+
+}
+.content .cot_box ul li .right_box{
+    float: right;
+    height: 108px;
+}
+.content .cot_box ul li .right_box dl{
+    width: 80px;
+    height: 14px;
+    margin: 20px auto 10px;
+}
+.content .cot_box ul li .right_box dl dd{
+    width: 15px;
+    height: 14px;
+    background-image: url("../images/star.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin-right: 1px;
+}
+.content .cot_box ul li .right_box dl dd.on{
+    background-image: url("../images/star_on.png");
+}
+.content .cot_box ul li .right_box  a{
+    display: block;
+    width: 106px;
+    height: 33px;
+    border: solid 1px #dfdfe0;
+    background-color: white;
+    margin-top: 10px;
+    line-height: 33px;
+    font-size: 14px;
+    color: #333333;
+    background-image: url("../images/icon_01.png");
+    background-repeat: no-repeat;
+    background-position: 15px center;
+    text-indent: 35px;
+    float : left;
+    margin-left : 15px;
+}
+/*分页*/
+.content .page_nav{
+    width: 540px;
+    height: 34px;
+    margin: 30px auto 0;
+}
+.content .page_nav ul li{
+    float: left;
+    border: solid 1px #DDDDDD;
+    height: 34px;
+    line-height: 34px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-left: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #428BCA;
+}
+/*选中样式*/
+.content .page_nav ul li.on{
+    background-color: #428BCA;
+    border-color: #428BCA;
+    color: white;
+}
+/*禁用样式*/
+.content .page_nav ul li.off{
+    color: #DDDDDD;
+}
+.content .page_nav ul li:first-child{
+    border-left: solid 1px #DDDDDD;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}

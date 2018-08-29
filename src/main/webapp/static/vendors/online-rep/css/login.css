@@ -1,0 +1,226 @@
+body{
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/login_banner.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+.top{
+    width: 100%;
+    height: 80px;
+    background-color: white;
+}
+.top .top_12{
+    width: 1200px;
+    height: 80px;
+    margin: 0 auto;
+}
+.top .top_12 .logo{
+    float: left;
+    margin-top: 15px;
+}
+.top .top_12 h1{
+    float: left;
+    margin-left: 20px;
+    font-size: 24px;
+    color: #555555;
+    line-height: 80px;
+}
+.top .top_12 .back_home{
+    float: right;width: 118px;
+    height: 36px;
+    border-radius: 17px;
+    border: solid 1px #4178be;
+    margin-top: 22px;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    color: #4178be;
+}
+.login_box{
+    width: 22%;
+    background-color: rgba(255,255,255,0.7);
+    position: absolute;
+    right: 10%;
+    text-align: center;
+    top: 16%;
+    padding: 2% 3% 2% 3%;
+}
+.login_box h2{
+    width: 100%;
+    height: 30px;
+    font-size: 24px;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.login_box .login_type{
+    width: 100%;
+    height: 50px;
+    margin: 0 auto 0;
+}
+.login_box .login_type ul li{
+    float: left;
+    line-height: 50px;
+    margin-right: 20px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #555555;
+}
+.login_box .login_type ul li i{
+    display: block;
+    width: 14px;
+    height: 14px;
+    overflow: hidden;
+    border: 2px solid #dce0e7;
+    border-radius: 50%;
+    float: left;
+    margin-top: 17px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+.login_box .login_type ul li.on i{
+    background-image: url("../img/disc.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 30px 30px;
+    border-color: #4285F4;
+}
+
+.login_box input{
+    width: 85%;
+    height: 45px;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: solid 1px #e2e2e2;
+    margin-bottom: 20px;
+    background-position: 23px center;
+    background-repeat: no-repeat;
+    font-size: 15px;
+    outline: none;
+    color: #333333;
+    padding-left: 15%;
+}
+.login_box input.error::-webkit-input-placeholder{
+    color: red;
+}
+.login_box input.error:-moz-placeholder{
+    color: red;
+}
+.login_box input.error::-moz-placeholder{
+    color: red;
+}
+.login_box input.error:-ms-input-placeholder{
+    color: red;
+}
+.login_box .yz-box{
+    width: 100%;
+    height: 45px;
+    position: relative;
+    margin: 0 auto 20px;
+    background-color: red;
+}
+.login_box .yz-box input{
+    background-image: url("../img/yz_icon.png");
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    width: 35%;
+    height: 43px;
+    margin-bottom: 0;
+    padding-right: 50%;
+}
+.login_box .yz-box .yz-img{
+    width: 136px;
+    height: 38px;
+    position: absolute;
+    top: 4px;
+    right: 40px;
+    background-color: red;
+}
+.login_box .yz-box button.huan{
+    width: 22px;
+    height: 18px;
+    position: absolute;
+    top: 14px;
+    right: 10px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-image: url("../img/huan-icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+}
+
+
+
+
+
+
+
+
+.login_box .jz_mima{
+    width: 100%;
+    height: 21px;
+}
+.login_box .jz_mima .jz_left{
+    float: left;
+    cursor: pointer;
+}
+.login_box .jz_mima .jz_left i{
+    display: block;
+    width: 13px;
+    height: 13px;
+    float: left;
+    border-radius: 3px;
+    margin-top:3px;
+    border: 1px solid #b3b3b3;
+    margin-right: 5px;
+
+}
+.login_box .jz_mima .jz_left i.on{
+    border-color: #2e81d7;
+    background-color: #2e81d7;
+    background-image: url("../img/dui_hao.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 15px 15px;
+}
+.login_box .jz_mima .jz_left span{
+    float: left;
+    font-size: 15px;
+    line-height: 21px;
+    color: #333333;
+}
+.login_box .jz_mima .zh_mima{
+    float: right;
+    font-size: 15px;
+    color: #333333;
+}
+.login_box .login_btn{
+    width: 100%;
+    height: 54px;
+    background-color: #3c9bed;
+    border-radius: 2px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+.login_box .log_now{
+    font-size: 15px;
+}
+.login_box .log_now a{
+    color: #3c9bed;
+}
+@media (max-width: 1700px) {
+    .login_box{
+        width: 27%;
+      
+    }
+}

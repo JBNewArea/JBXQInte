@@ -1,0 +1,111 @@
+/*顶部*/
+.top{
+    width: 1200px;
+    height: 100px;
+    margin: 0 auto;
+}
+.top .logo{
+    width: 400px;
+    height: 80px;
+    padding-top: 20px;
+    float: left;
+}
+.top .logo img{
+    float: left;
+    border: none;
+}
+.top .logo .title{
+    float: left;
+    line-height: 1.5rem;
+    margin-left: 10px;
+    padding-top: 5px;
+}
+.top .logo .title p:first-child{
+    font-size: 30px;
+    color: black;
+    font-family: 宋体;
+    font-weight: bold;
+}
+.top .logo .title p:nth-child(2){
+    font-size: 13px;
+    color: #cccccc;
+}
+/*顶部导航*/
+.top .nav{
+    width: 720px;
+    height: 100px;
+    float: left;
+    margin-left: 80px;
+}
+.top .nav ul li{
+    float: left;
+    height: 100px;
+    width: 80px;
+    margin-left: 40px;
+    position: relative;
+}
+
+.top .nav ul li a{
+    display: block;
+    width: 80px;
+    font-size: 16px;
+    height: 45px;
+    line-height: 40px;
+    padding-top: 30px;
+    text-align: center;
+}
+.top .nav ul li a:hover{
+    color: #0077C9;
+    border-bottom: 2px solid #0077C9;
+}
+.active a{
+    color: #0077C9;
+    border-bottom: 2px solid #0077C9;
+}
+.top .nav ul li:hover ul{
+    display: block;
+}
+/*顶部导航二级菜单样式*/
+.top .nav ul li ul{
+    position: absolute;
+    top: 100px;
+    display: none;
+    z-index: 99;
+    left: 0;
+}
+.top .nav ul li ul li{
+    height: 35px;
+    float: inherit;
+    margin-left: 0;
+}
+.top .nav ul li ul li a{
+    padding-top: 0;
+    background-color: #D2E8FF;
+    height: 35px;
+    line-height: 35px;
+    font-size: 13px;
+    border: none;
+    color: black;!important;
+}
+.top .nav ul li ul li:hover a{
+    color: #0077C9;
+    border: none;
+}
+
+#go-top{
+	position:fixed;
+	bottom:30px;
+	display:block;
+	right:30px;
+	width:70px;
+	height:25px;
+	background-color:white;
+	color:#1296db;
+	background-image:url('../img/go-topbefore.png');
+	background-position: center 5px ;
+	background-repeat:no-repeat;
+	font-size:14px;
+	text-align:center;
+	padding-top:45px;
+	border-radio:3px;
+}
