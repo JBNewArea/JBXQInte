@@ -17,6 +17,6 @@ public class LogServiceImpl extends CommonServiceImpl<LogMapper,Log> implements 
 	public Page<Log> selectPage(Page<Log> page, Wrapper<Log> wrapper) {
 		wrapper.eq("1", "1");
 		page.setRecords(baseMapper.selectLogPage(page, wrapper));
-		return page;
+		return page; 
 	}
 }

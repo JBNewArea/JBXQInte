@@ -528,6 +528,7 @@ function submitApplication(){
 	     +"&applyPerson.applicationDocumentNumber=" + applicant_card + "&applyPerson.applicationPhone=" + applicant_telephone
 	     +"&applyPerson.applicationPostCode=" + applicant_postcode + "&applyPerson.applicationAddress=" + applicant_address
 	     +"&agentName=" + agent_name + "&agentDocumentType=" + agent_card_type + "&agentDocumentNumber=" + agent_idcard + "&telPhone=" + agent_telephone;
+	console.log(data);
 	$.ajax({
 		type : "post",
 		async: false, 

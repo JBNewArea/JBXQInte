@@ -7,4 +7,6 @@ import com.idea.modules.supervise.entity.Supervise;
 
 public interface SuperviseMapper extends BaseMapper<Supervise> {
 
+	
+	List<Supervise> querySupervisepage();
 }

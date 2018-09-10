@@ -1,5 +1,7 @@
 package com.idea.modules.supervise.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,6 +23,9 @@ import com.idea.modules.supervise.service.ISuperviseService;
 @RequiresPathPermission("su:supervise")
 public class SuperviseController extends BaseCRUDController<Supervise,String> {
 
+	@Autowired
+	private ISuperviseService supervviseService;
+	
 	@RequestMapping("/index")
 	public String toIndex(Model model, HttpServletRequest request, HttpServletResponse response){
 		return display("index");
@@ -39,6 +44,8 @@ public class SuperviseController extends BaseCRUDController<Supervise,String> {
 	
 	@RequestMapping("/toAudit")
 	public String toAudit(Model model, HttpServletRequest request, HttpServletResponse response){
+		List<Supervise> list = supervviseService.querySupervisepage();
+		
 		return display("/audit/list");
 	}
 	

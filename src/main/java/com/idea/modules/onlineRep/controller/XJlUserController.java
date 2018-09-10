@@ -1,4 +1,5 @@
 package com.idea.modules.onlineRep.controller;
+import java.net.MalformedURLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.idea.core.common.controller.BaseCRUDController;
+import com.idea.core.model.AjaxJson;
 import com.idea.core.security.shiro.authz.annotation.RequiresPathPermission;
 import com.idea.modules.onlineRep.entity.XJLUser;
 import com.idea.modules.onlineRep.service.IXJLUserService;
+import com.idea.modules.onlineRep.utils.OnlineUtils;
 
 @Controller
 @RequestMapping("${admin.url.prefix}/xjlu")
@@ -36,5 +39,24 @@ public class XJlUserController extends BaseCRUDController<XJLUser, String>{
 		String pwd = request.getParameter("plainPassword");
 		String tel = request.getParameter("telphone");
 		String code = request.getParameter("code");
+	}
+	
+	
+	/**
+	 * 异步调用 - 短信验证码
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws MalformedURLException
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/regVefyCode", method = RequestMethod.POST)
+	public AjaxJson verifyCode(HttpServletRequest request, HttpServletResponse response) throws MalformedURLException, Exception{
+		AjaxJson ajaxJson = new AjaxJson();
+		String phone = request.getParameter("phone");
+		String num = OnlineUtils.getSixRandom();
+		ajaxJson.setData(OnlineUtils.xfireClient(phone, num));
+		return ajaxJson;
 	}
 }

@@ -9,6 +9,8 @@
 
 <body class="gray-bg" title="<spring:message code="sys.supervise.title" />">
 <grid:grid id="superGridId" url="${adminPath}/supervise/ajaxList">
+<grid:column label="标题"  name="title"  query="title" />
+<grid:column label="发布人"  name="publisher"  query="publisher" />
 </grid:grid>
 </body>
 </html>

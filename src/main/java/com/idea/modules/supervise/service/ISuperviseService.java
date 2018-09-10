@@ -1,4 +1,6 @@
 package com.idea.modules.supervise.service;
+import java.util.List;
+
 import com.idea.core.common.service.ICommonService;
 import com.idea.modules.supervise.entity.Supervise;
 
@@ -8,4 +10,7 @@ import com.idea.modules.supervise.entity.Supervise;
  *
  */
 public interface ISuperviseService  extends ICommonService<Supervise> {
+	
+	
+	public List<Supervise> querySupervisepage();
 }

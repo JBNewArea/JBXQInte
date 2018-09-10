@@ -1,5 +1,7 @@
 package com.idea.modules.supervise.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.idea.core.common.service.impl.CommonServiceImpl;
@@ -15,6 +17,11 @@ import com.idea.modules.supervise.service.ISuperviseService;
 @Transactional
 @Service("superviseService")
 public class SuperviseServiceImpl extends CommonServiceImpl<SuperviseMapper,Supervise> implements ISuperviseService{
+
+	@Override
+	public List<Supervise> querySupervisepage() {
+		return baseMapper.querySupervisepage();
+	}
 
 
 }

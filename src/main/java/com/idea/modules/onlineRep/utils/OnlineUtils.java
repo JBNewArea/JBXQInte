@@ -6,12 +6,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.codehaus.xfire.client.Client;
 
 public class OnlineUtils {
 
@@ -158,4 +161,31 @@ public class OnlineUtils {
 	    System.out.println(s);
 	    return s.toString();
 	  }
+	 
+	 /**
+	  * 随机数
+	  * @return
+	  */
+	 public static String getSixRandom(){
+	    Random random = new Random();
+	    String sixRandom = String.valueOf(random.nextInt(1000000));
+	    int randLength = sixRandom.length();
+	    if (randLength < 6) {
+	      for (int i = 1; i <= 6 - randLength; i++) {
+	        sixRandom = "0" + sixRandom;
+	      }
+	    }
+	    return sixRandom;
+	  }
+	 
+	 /**
+	  * 
+	  * @throws MalformedURLException
+	  * @throws Exception
+	  */
+	public static String xfireClient(String phone,String num) throws MalformedURLException, Exception{
+		 Client client = new Client(new URL("http://10.196.109.218:8080/XFire/services/ProjectService?wsdl"));
+		 Object[] results = client.invoke("backAudit", new Object[] {phone,num});
+         return String.valueOf(results[0]);
+	}
 }

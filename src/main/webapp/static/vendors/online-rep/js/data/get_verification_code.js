@@ -97,7 +97,7 @@ function getVerificationCode(attr,flag){
 function sendMessage(phone,flag){
 	var noteUrl = "";
 	if(flag == 1){
-		noteUrl = "f/front/note/sendRegisterValidate";     //阿里短信（注册验证码）
+		noteUrl = "/JBXQInte/admin/xjlu/regVefyCode";     //阿里短信（注册验证码）
 	}else if(flag == 2){
 		noteUrl = "f/front/note/sendUpdatePwdValidate";     //阿里短信（修改密码验证码）
 	}
