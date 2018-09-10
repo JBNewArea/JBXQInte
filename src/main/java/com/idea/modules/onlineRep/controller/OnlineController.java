@@ -81,6 +81,17 @@ public class OnlineController extends BaseController {
 		request.setAttribute("type", request.getParameter("type"));
 		return display("declare");
 	}
+	/**
+	 * 跳转 - 主题申报页面
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping("/toThemeDeclare")
+	public String toThemeDeclare(HttpServletRequest request, HttpServletResponse response){
+		request.setAttribute("type", request.getParameter("type"));
+		return display("themeDeclare");
+	}
 	
 	/**
 	 * 跳转 - 地图服务
@@ -136,7 +147,7 @@ public class OnlineController extends BaseController {
 	 * @param response
 	 * @return
 	 */
-	@ResponseBody
+	@ResponseBody 
 	@RequestMapping(value = "/toOnlineDeclare", method = RequestMethod.POST)
 	public AjaxJson toOnlineDeclare(HttpServletRequest request, HttpServletResponse response){
 		 String res = "{\"type\":\"1\",\"id\":\"af1267c315ca4729aafcb12f9c65fecd\",\"loginname\":\"gabrain\"}";
@@ -166,6 +177,49 @@ public class OnlineController extends BaseController {
 		}
 		return ajaxJson;
 	}
+	/**
+	 * 异步请求 - 调用主题事项接口
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/getTheme", method = RequestMethod.POST)
+	public  AjaxJson getTheme(HttpServletRequest request, HttpServletResponse response){
+		AjaxJson ajaxJson = new AjaxJson();
+		String pageNo =  request.getParameter("pageNo");
+		String pageSize = request.getParameter("pageSize");
+		String name = request.getParameter("name");
+		String params = "pageNo="+pageNo+"&pageSize="+pageSize+"&name="+name;
+		try {
+			String res = HttpRequest.sendPost(OnlineUtils.TRANSURL+OnlineUtils.TRANS_THEME_URL,params);
+			ajaxJson.setData(res);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return ajaxJson;
+	}
+	/**
+	 * 异步请求 - 调用主题事项接口
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/themeFindById", method = RequestMethod.POST)
+	public  AjaxJson themeFindById(HttpServletRequest request, HttpServletResponse response){
+		AjaxJson ajaxJson = new AjaxJson();
+		String id = request.getParameter("id");
+		String params = "id="+id;
+		try {
+			String res = HttpRequest.sendPost(OnlineUtils.TRANSURL+OnlineUtils.ID_THEME_URL,params);
+			ajaxJson.setData(res);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return ajaxJson;
+	}
+
 	
 	
 	/**

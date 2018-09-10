@@ -17,7 +17,7 @@
 		<jboss-logging.version>3.3.1.Final</jboss-logging.version>
 		<shiro.version>1.2.2</shiro.version>
 		<druid.version>0.2.23</druid.version>
-		<!-- mysql --> 
+		<!-- mysql -->
 		<mysql.version>5.1.27</mysql.version>
 		<!-- oracle -->
 		<oracle.version>10.2.0.1.0</oracle.version>
@@ -473,7 +473,7 @@
 					<showWarnings>true</showWarnings>
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins>  
     <finalName>JBXQInte</finalName>
   </build>
 </project>

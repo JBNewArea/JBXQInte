@@ -402,6 +402,11 @@
 	    <script src="${staticPath}/vendors/online-rep/js/data/zx_banli.js" type='text/javascript'></script>
 	]]>
     </js>
+    <js name="online_rep_theme_banli">
+        <![CDATA[
+	    <script src="${staticPath}/vendors/online-rep/js/data/theme_banli.js" type='text/javascript'></script>
+	]]>
+    </js>
     <js name="online_rep_bs_filedownloadView">
         <![CDATA[
 	    <script src="${staticPath}/vendors/online-rep/js/data/filedownloadView.js" type='text/javascript'></script>

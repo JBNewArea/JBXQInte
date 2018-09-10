@@ -20,6 +20,7 @@ function PageCallback(index, jq) { // 前一个表示您当前点击的那个分
  * 查询事项方法
  */
 function findTrans(pageNo){
+	debugger;
 	console.log('comeon');
 	$(".tcdPageCode").empty();
 	var keyword = '';
@@ -35,18 +36,20 @@ function findTrans(pageNo){
 		data : {
 			"pageNo" : pageNo,
 			"pageSize" : pageSize,
-			"transName" : keyword
+			"name" : keyword
 		},
-		url : "/JBXQInte/admin/onlinerep/getMatter",
+		url : "/JBXQInte/admin/onlinerep/getTheme",
 		success : function(result){
-			var myobj=eval("(" + result.data + ")");
+			console.log(result);
+			//result=JSON.parse(result.data);
+			var result=eval("(" + result.data + ")");
 			$("#translist").empty();
-			total = result.count;
-			$.each(myobj.list,function(index,element){
+			total = result.size;
+			$.each(result.list,function(index,element){
 				$("#translist").append("<li>"
 		                +"<div class='left_box'>"
-		                +"  <h4>"+element.transName+"</h4>"
-		                +"  <p><span>受理机构：</span><span>"+element.office.name+"</span></p>"
+		                +"  <h4>"+element.name+"</h4>"
+		                +"  <p><span>受理机构：</span><span>受理机构</span></p>"
 		                +"  <p class='btm_text'>"
 		                +"  <span>全程网办服务</span>"
 		                +"  <span>物流快递服务</span>"
@@ -60,7 +63,7 @@ function findTrans(pageNo){
 		                +"     <dd class='on'></dd>"
 		                +"     <dd class='on'></dd>"
 		                +" </dl>"
-		                +"  <a href='javascript:void(0)' onclick=\"OnlineTransact('trans_id','"+element.id+"','/JBXQInte/admin/onlinerep/toDeclare')\">在线办理</a>"
+		                +"  <a href='javascript:void(0)' onclick=\"OnlineTransact('themeName','"+element.name+"','transIds','"+element.transIds+"','/JBXQInte/admin/onlinerep/toThemeDeclare')\">在线办理</a>"
 		                +"  "
 		                +" </div>"
 		                +" </li>");
@@ -90,9 +93,11 @@ function findTrans(pageNo){
  * @param value  
  * @param path  跳转路径
  */
-function OnlineTransact(name,value,path){
-	console.log(name + "="+ escape (value));
-	document.cookie = name + "="+ escape (value);
+function OnlineTransact(themeName,themeValue,transIds,transIdsValue,path){
+	console.log(transIds + "="+ escape (transIdsValue));
+	document.cookie = transIds + "="+ escape (transIdsValue);
+	console.log(themeName + "="+ escape (themeValue));
+	document.cookie = themeName + "="+ escape (themeValue);
 	$.ajax({
 		type : "post",
 		dataType : "json",

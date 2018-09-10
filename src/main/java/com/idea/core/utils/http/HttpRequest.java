@@ -17,7 +17,7 @@ import com.idea.core.utils.StringUtils;
 /**
  * HTTP网络请求
  * 
- * @author 王存见
+ * @author 王存见但是
  *
  */
 public class HttpRequest {
