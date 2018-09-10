@@ -18,7 +18,7 @@ import com.idea.core.utils.StringUtils;
  *
  */
 public class HttpRequest {
-
+ 
 	/**
 	 * 向指定URL发送GET方法的请求
 	 * 
