@@ -14,7 +14,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class OnlineUtils {
-
+	/**
+	 * 主题事项接口
+	 */
+	public final static String TRANS_THEME_URL="/interface/interface/findData";
+	/**
+	 * 主题事项接口-根据id查询
+	 */
+	public final static String ID_THEME_URL="/interface/interface/findById";
+	/**
+	 * 主题事项接口项目地址
+	 */
+	public final static String TRANSURL="http://127.0.0.1:8083/hd-xzsp-trans-admin";
+	
 	/**
 	 * 接口项目地址
 	 */
