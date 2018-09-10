@@ -50,6 +50,7 @@
 		<sitemesh.version>2.4.2</sitemesh.version>
 		<!-- 缓存 -->
 		<ehcache.version>2.6.9</ehcache.version>
+		<!-- 缓存 res_分布式版本-->
 		<ehcache-web.version>2.0.4</ehcache-web.version>
 		<!-- 计划任务 -->
 		<quartz.version>2.2.1</quartz.version>
@@ -67,6 +68,8 @@
 		<ueditor.version>1.1.2</ueditor.version>
 		<!-- 强制编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <!-- xfire版本 -->
+		<xfire.version>1.2.6</xfire.version>
   </properties>
  <dependencies>
      <!-- web begin Spring MVC Test Framework 需要 servlet-api 3.0 以上 -->
@@ -431,6 +434,13 @@
 		    <groupId>cn.songxinqiang</groupId>
 		    <artifactId>com.baidu.ueditor</artifactId>
 		    <version>${ueditor.version}-offical</version>
+		</dependency>
+		<!-- xfire client -->
+		<!-- https://mvnrepository.com/artifact/org.codehaus.xfire/xfire-core -->
+		<dependency>
+		    <groupId>org.codehaus.xfire</groupId>
+		    <artifactId>xfire-core</artifactId>
+		    <version>${xfire.version}</version>
 		</dependency>
   </dependencies>
   <repositories>
