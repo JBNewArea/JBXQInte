@@ -357,4 +357,25 @@ public class OnlineController extends BaseController {
 		return ajaxJson;
 	}
 	
+	/**
+	 * 异步调用 - 单个事项上传附件
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/doMatterUploadFile", method = RequestMethod.POST)
+	public AjaxJson doMatterUploadFile(HttpServletRequest request, HttpServletResponse response){
+		AjaxJson ajaxJson = new AjaxJson();
+		String params= "";
+		String res;
+		try {
+			res = HttpRequest.sendPost(OnlineUtils.INTERFACEURL+OnlineUtils.ONLIEN_MATERITALSAVE_URL, params);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
+		return ajaxJson;
+	}
+	
 }
