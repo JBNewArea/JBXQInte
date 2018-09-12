@@ -43,6 +43,11 @@ public class OnlineUtils {
 	 * 事项对应材料接口
 	 */
 	public final static String ONLIEN_MATERIAL_URL="material/material/findMaterialList";
+	
+	/**
+	 * 单个事项上传材料
+	 */
+	public final static String ONLIEN_MATERITALSAVE_URL="userMaterial/userMaterial/save";
 	/**
 	 * 附件上传
 	 */
