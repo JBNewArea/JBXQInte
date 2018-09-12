@@ -146,6 +146,7 @@ public class OnlineUtils {
 	    }
 	    return new Color(f + random.nextInt(b - f), f + random.nextInt(b - f), f + random.nextInt(b - f));
 	  }
+	 
 	 /**
 	  * 得到不同的字符
 	  * @param g
