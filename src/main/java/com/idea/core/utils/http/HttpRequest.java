@@ -2,15 +2,31 @@ package com.idea.core.utils.http;
 
 import java.io.BufferedReader;
 import java.io.Closeable;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
+
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.idea.core.utils.StringUtils;
 
@@ -177,4 +193,129 @@ public class HttpRequest {
 		}
 		return sendPost(url, paramStr);
 	}
+	
+	 //带文件上传的表单提交
+		public static String fileUpload(String urlStr, HttpServletRequest request,MultipartFile multipartFile) {
+			  //获取文件名
+			  String fileName = multipartFile.getOriginalFilename();
+			  if(fileName.equals("blob")){
+				  fileName = "在线表" + new Date().getTime() + ".png";
+			  }
+			  //将MultipartFile转化为File
+			  CommonsMultipartFile cf= (CommonsMultipartFile)multipartFile; 
+			  DiskFileItem fi = (DiskFileItem)cf.getFileItem(); 
+			  File file = fi.getStoreLocation();
+			  //手动创建临时文件  
+			  if(!file.exists()){  
+				  file = new File(System.getProperty("java.io.tmpdir") + System.getProperty("file.separator") +   
+	                    file.getName());  
+		            try {
+						multipartFile.transferTo(file);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}  
+		        }  
+			  //封装参数为map
+			  @SuppressWarnings("unchecked")
+			  Map<String,String[]> readOnlyMap = request.getParameterMap();
+			  Map<String,String> map = new HashMap<String,String>();
+			  Set<String> keySet = readOnlyMap.keySet();
+			  Iterator<String> it =  keySet.iterator();
+			  while (it.hasNext()) {  
+				  String str = it.next();  
+				  map.put(str, readOnlyMap.get(str)[0]);
+			  } 
+		  
+			  String res = "";  
+			  HttpURLConnection conn = null;  
+			  String BOUNDARY = "---------------------------123821742118716"; // boundary就是request头和上传文件内容的分隔符  
+			  try {  
+				    URL url = new URL(urlStr);  
+				    conn = (HttpURLConnection) url.openConnection();  
+				    conn.setConnectTimeout(5000);  
+				    conn.setReadTimeout(30000);  
+				    conn.setDoOutput(true);  
+				    conn.setDoInput(true);  
+				    conn.setUseCaches(false);  
+				    conn.setRequestMethod("POST");  
+				    conn.setRequestProperty("Connection", "Keep-Alive");  
+				    conn.setRequestProperty("User-Agent",  
+				            "Mozilla/5.0 (Windows; U; Windows NT 6.1; zh-CN; rv:1.9.2.6)");  
+				    conn.setRequestProperty("Content-Type",  
+				            "multipart/form-data; boundary=" + BOUNDARY);  
+				
+				    OutputStream out = new DataOutputStream(conn.getOutputStream());  
+				    // text  
+				    if (map != null) {  
+				        StringBuffer strBuf = new StringBuffer();  
+				        Iterator<Entry<String, String>> iter = map.entrySet().iterator();  
+				        while (iter.hasNext()) {  
+				            @SuppressWarnings("rawtypes")
+							Map.Entry entry = (Map.Entry) iter.next();  
+				            String inputName = (String) entry.getKey();  
+				            String inputValue = (String) entry.getValue();  
+				            if (inputValue == null) {  
+				                continue;  
+				            }  
+				            strBuf.append("\r\n").append("--").append(BOUNDARY)  
+				                    .append("\r\n");  
+				            strBuf.append("Content-Disposition: form-data; name=\""  
+				                    + inputName + "\"\r\n\r\n");  
+				            strBuf.append(inputValue);  
+				        }  
+				        out.write(strBuf.toString().getBytes());  
+				    }  
+				
+				    // file
+				    if(null != file){
+				        String contentType = new MimetypesFileTypeMap().getContentType(file);  
+				        if (fileName.endsWith(".png")) {  
+				            contentType = "image/png";  
+				        }  
+				        if (contentType == null || contentType.equals("")) {  
+				            contentType = "application/octet-stream";  
+				        }
+				        StringBuffer strBuf = new StringBuffer();  
+				        strBuf.append("\r\n").append("--").append(BOUNDARY).append("\r\n");  
+				        strBuf.append("Content-Disposition: form-data; name=\""  
+				                    + "file\"; filename=\"" + fileName  
+				                    + "\"\r\n");  
+				        strBuf.append("Content-Type:" + contentType + "\r\n\r\n");  
+				        out.write(strBuf.toString().getBytes());  
+				        DataInputStream in = new DataInputStream(new FileInputStream(file));  
+				        int bytes = 0;  
+				        byte[] bufferOut = new byte[1024];  
+				        while ((bytes = in.read(bufferOut)) != -1) {  
+				             out.write(bufferOut, 0, bytes);  
+				        }  
+				        in.close(); 
+				    }
+				    byte[] endData = ("\r\n--" + BOUNDARY + "--\r\n").getBytes();  
+				    out.write(endData);  
+				    out.flush();  
+				    out.close();  
+				
+				    // 数据返回  
+				    StringBuffer strBuf = new StringBuffer();  
+				    BufferedReader reader = new BufferedReader(new InputStreamReader(  
+				            conn.getInputStream()));  
+				    String line = null;  
+				    while ((line = reader.readLine()) != null) {  
+				        strBuf.append(line).append("\n");  
+				    }  
+				    res = strBuf.toString();  
+				    reader.close();  
+				    reader = null;  
+			  } catch (Exception e) {  
+				  	e.printStackTrace();  
+			  } finally {  
+				    if (conn != null) {  
+				        conn.disconnect();  
+				        conn = null;  
+				    }  
+			  }  
+			  return res;  
+		}
 }

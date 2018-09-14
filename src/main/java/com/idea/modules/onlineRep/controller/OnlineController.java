@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.idea.core.common.controller.BaseController;
 import com.idea.core.model.AjaxJson;
 import com.idea.core.security.shiro.authz.annotation.RequiresPathPermission;
@@ -365,17 +367,10 @@ public class OnlineController extends BaseController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/doMatterUploadFile", method = RequestMethod.POST)
-	public AjaxJson doMatterUploadFile(HttpServletRequest request, HttpServletResponse response){
+	public AjaxJson doMatterUploadFile(HttpServletRequest request,HttpServletResponse response,MultipartFile file){
 		AjaxJson ajaxJson = new AjaxJson();
-		String params= "";
-		String res;
-		try {
-			res = HttpRequest.sendPost(OnlineUtils.INTERFACEURL+OnlineUtils.ONLIEN_MATERITALSAVE_URL, params);
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		}
+		String res = HttpRequest.fileUpload(OnlineUtils.INTERFACEURL+OnlineUtils.ONLIEN_MATERITALSAVE_URL, request, file);
+		ajaxJson.setData(res);
 		return ajaxJson;
 	}
-	
 }
