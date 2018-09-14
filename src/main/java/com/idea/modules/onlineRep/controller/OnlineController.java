@@ -21,6 +21,10 @@ import com.idea.modules.onlineRep.utils.OnlineUtils;
 public class OnlineController extends BaseController {
 
 	
+	@RequestMapping("/toSpLogin")
+	public String toSpLogin(HttpServletRequest request, HttpServletResponse response){
+		return display("sp_login");
+	}
 	/**
 	 * 跳转 - 主页面
 	 * @param request
@@ -371,6 +375,24 @@ public class OnlineController extends BaseController {
 		AjaxJson ajaxJson = new AjaxJson();
 		String res = HttpRequest.fileUpload(OnlineUtils.INTERFACEURL+OnlineUtils.ONLIEN_MATERITALSAVE_URL, request, file);
 		ajaxJson.setData(res);
+		return ajaxJson;
+	}
+	/**
+	 * 异步调用 - 网上申报接口
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/doSaveMatter", method = RequestMethod.POST)
+	public AjaxJson doSaveMatter(HttpServletRequest request, HttpServletResponse response){
+		AjaxJson ajaxJson = new AjaxJson();
+		String params= "";
+		try {
+			HttpRequest.sendPost(OnlineUtils.INTERFACEURL+OnlineUtils.ONLINE_APPLICATION_URL+"save", params);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return ajaxJson;
 	}
 }
