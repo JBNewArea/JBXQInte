@@ -18,14 +18,21 @@ var personalization_form_3 = '临时占用城市绿地审批';
 var personalization_form_4 = '砍伐城市树木、迁移古树名木审批';
 var personalization_form_5 = '占用、挖掘城市道路审批';
 var transNames = "";
+//材料数组
+var materialArray=new Array();
+//材料数组的大小
+var materialSize = 0;
 //返回办件编号
 var office_number ="";
+//事项id，name
+var transMap = new Map();
+
 $(function(){
-	
+	debugger
 	user_type = getParameter("user_type");
 	  console.log(user_type);
 	//获取事项ids
-      debugger;
+	  $("#themeName").text(getParameter("themeName"));
       var transIds = getParameter("transIds");
       var strs= new Array(); //定义一数组
   	strs=transIds.split(","); //字符分割
@@ -35,13 +42,13 @@ $(function(){
 		$(".company_type").click(function () {
 	        alert("该用户只能办理个人事项");
         });
-		//无源码 无用户
-		//findUser(getParameter("user_id"));
 		for (i=0;i<strs.length ;i++ )
     	{
     		console.log(strs[i]); //分割后的字符输出
     		findTransById(strs[i]);
     	}
+		//无源码 无用户
+		//findUser(getParameter("user_id"));
 	}else{
 		$(".company_type").addClass("on").siblings("li").removeClass("on");
         $(".user_info").hide().siblings(".company_info").show();
@@ -49,8 +56,8 @@ $(function(){
             alert("该用户只能办理企业事项");
         });
         //无源码 无用户
-		//findLegalPerson(getParameter("legal_id"));a
-    	for (i=0;i<strs.length ;i++ )
+		//findLegalPerson(getParameter("legal_id"));
+        for (i=0;i<strs.length ;i++ )
     	{
     		console.log(strs[i]); //分割后的字符输出
     		findTransById(strs[i]);
@@ -124,10 +131,9 @@ function checkNull(type){
  * @param id
  */
 function findTransById(id){
-	debugger
+	
 	console.log('comming trans');
-	var themeName = getParameter("themeName");
-	console.log("themeName:"+themeName);
+	console.log("id:"+id);
 	$.ajax({
 		type : "post",
 		dataType : "json",
@@ -136,19 +142,22 @@ function findTransById(id){
 		},
 		url : "/JBXQInte/admin/onlinerep/getTrans",
 		success : function(result){
+			var myobj=eval("(" + result.data + ")");
+			transMap.set(id,myobj.transName);
 			var class_name = '';
 			if(user_type == 1){
 				class_name = 'user';
 			}else{
 				class_name = 'company';
 			}
-			var myobj=eval("(" + result.data + ")");
-			transNames = transNames+","+myobj.transName;
-			transNames+= ",";
-			transNames=transNames.substring(1,transNames.length-1);
+			if(transNames=="" ||transNames ==null){
+				transNames= myobj.transName;
+			}else{
+				transNames = transNames+","+myobj.transName;
+			}
 			$("#trans_id").val(myobj.id);
+			$("#trans_name").text(myobj.transName);
 			$("#transNames").text(transNames);
-			$("#themeName").text(themeName);
 			if(myobj.transName.match(personalization_form_1)){
 				page_view = "1";
 				$("#sq_info_1").show();
@@ -172,32 +181,7 @@ function findTransById(id){
 			}
 			$("#office_name").text(myobj.office.name);
 
-			queryMaterialByIds(myobj.materialIds);
-		},
-		error : function(){
-			alert("申报事项获取失败！");
-		}
-	});
-}
-function findTransByIdData(id){
-	debugger
-	console.log('comming trans');
-	var themeName = getParameter("themeName");
-	console.log("themeName:"+themeName);
-	$.ajax({
-		type : "post",
-		dataType : "json",
-		data : {
-			"id" : id
-		},
-		url : "/JBXQInte/admin/onlinerep/getTrans",
-		success : function(result){
-			var myobj=eval("(" + result.data + ")");
-			transNames = transNames+","+myobj.transName;
-			transNames+= ",";
-			transNames=transNames.substring(1,transNames.length-1);
-			$("#trans_id").val(myobj.id);
-			$("#transNames").text(transNames);
+			queryMaterialByIds(myobj.materialIds,myobj.id,myobj.transName);
 		},
 		error : function(){
 			alert("申报事项获取失败！");
@@ -268,7 +252,7 @@ function findLegalPerson(id){
  * 通过材料ids 查询事项材料
  * @param ids
  */
-function queryMaterialByIds(ids){
+function queryMaterialByIds(ids,id,transName){
 	$.ajax({
 		type : "post",
 		dataType : "json",
@@ -278,22 +262,44 @@ function queryMaterialByIds(ids){
 		},
 		success : function(result){
 			var myobj=eval("(" + result.data + ")");
+			materialSize = materialArray.length;
+			Array.prototype.push.apply(materialArray, myobj);
+			console.log(materialArray);
 			var material_ids = '';
+			//每次进入清空列表，获取最后一次列表
+			//$("#material_list").html("");
+			//创建form
+			var form=$("<form></form>");
+			//设置属性
+			form.attr("id","material_form"+id);
+			form.attr("target","material_iframe"+id);
+			$("#material_table").append(form);
+			//创建标题
+			var h2 = $("<h2><i></i>"+transName+"</h2>");
+			$("#material_form"+id).append(h2);
+			//创建table
+			var table=$("<table></table>");
+			table.attr("id","table_form"+id);
+			$("#material_form"+id).append(table);
+			//创建Tbody
+			var materialTbody=$("<tbody></tbody>");
+			materialTbody.attr("id","material_tbody"+id);
+			$("#table_form"+id).append(materialTbody);
 			for(var i = 0;i<myobj.length;i++){
 				console.log(myobj[i].materialName);
 				material_ids += myobj[i].id +",";
-				$("#material_list").append("<tr>"
-                    +"<td style='width: 70px;'>"+(i+1)+"</td>"
+				$("#material_tbody"+id).append("<tr>"
+                    +"<td style='width: 70px;'>"+(i+materialSize+1)+"</td>"
 				    +"<td>"+myobj[i].materialName
-				    +"<input type='hidden' name='materialList["+i+"].material.materialName' id='material_name"+i+"' value='"+myobj[i].materialName+"'>"
-					+"<input type='hidden' name='userIdCard' id='material_idcard"+i+"'>"
-					+"<input type='hidden' name='materialList["+i+"].getMode' id='getMode"+i+"' value='由用户上传'>"
-					+"<input type='hidden' name='materialList["+i+"].material.id' id='materialid"+i+"' value='"+myobj[i].id+"'>"
-					+"<input type='hidden' name='materialList["+i+"].materialGetId' id='getMaterialId-"+i+"'>"
+				    +"<input type='hidden' name='materialList["+i+"].material.materialName' id='material_name"+(i+materialSize)+"' value='"+myobj[i].materialName+"'>"
+					+"<input type='hidden' name='userIdCard' id='material_idcard"+(i+materialSize)+"'>"
+					+"<input type='hidden' name='materialList["+i+"].getMode' id='getMode"+(i+materialSize)+"' value='由用户上传'>"
+					+"<input type='hidden' name='materialList["+i+"].material.id' id='materialid"+(i+materialSize)+"' value='"+myobj[i].id+"'>"
+					+"<input type='hidden' name='materialList["+i+"].materialGetId' id='getMaterialId-"+(i+materialSize)+"'>"
 				    +"</td>"
 				    +"<td style='width: 97px;'>"
-				    +"<a class='upload_btn' onclick=\"ShowFileBox("+i+")\"></a>"
-				    +"<a class='view_btn' id='file_view_"+i+"' style='display:none;'></a>"
+				    +"<a class='upload_btn' onclick=\"ShowFileBox("+(i+materialSize)+")\"></a>"
+				    +"<a class='view_btn' id='file_view_"+(i+materialSize)+"' style='display:none;'></a>"
 				    +"</td>"
 				+"</tr>");
 			}
@@ -323,6 +329,7 @@ function queryMaterialByIds(ids){
  * 打开文件上传弹框
  */
 function ShowFileBox(index) {
+	
 	indextemp = index;
 	$("#usermaterialid").val($("#getMaterialId-"+index).val());
 	$("#userIdCard").val(user_idcard);
@@ -353,17 +360,17 @@ function saveMaterial(){
 		processData:false,
 		contentType:false,
 		url : "/JBXQInte/admin/onlinerep/doMatterUploadFile",
-		success : function (data){
-			data = data.substring(0,data.length-1);
-			if(data == "fail"){
+		success : function (result){
+			//data = data.substring(0,data.length-1);
+			if(result.data == "fail"){
 				alert("上传材料失败，请重新上传");
 				$("#file").val("");
 				return;
 			}else{
 				 layer.msg('上传成功', {icon: 1});
-				 $("#getMaterialId-"+indextemp).val(data);
+				 $("#getMaterialId-"+indextemp).val(result.data);
 				 $("#file_view_"+indextemp).show();
-				 $("#file_view_"+indextemp).attr("href","javascript:openDialogView('附件管理','"+data+"','80%','80%',1)");			        
+				 $("#file_view_"+indextemp).attr("href","javascript:openDialogView('附件管理','"+result.data+"','80%','80%',1)");			        
 	        	 $("#getMode"+indextemp).val("由用户上传");
 	        	 $("#file_load").val("");
 	        	 HideFileBox();
@@ -533,13 +540,15 @@ function deleteAddress(id){
  * 事项申报方法
  */
 function submitApplication(){
-	debugger;
+	
 	var transIds = getParameter("transIds");
 	var strs= new Array(); //定义一数组
 	strs=transIds.split(","); //字符分割
 	for (i=0;i<strs.length ;i++ )
 	{
-		console.log(strs[i]); //分割后的字符输出
+	console.log(strs[i]); //分割后的字符输出
+	$("#trans_id").val(strs[i]);
+	$("#trans_name").val(transMap.get(strs[i]));
 	var applicant_name = "";
 	var applicant_card = "";
 	var applicant_telephone = "";
@@ -575,10 +584,9 @@ function submitApplication(){
 		agent_idcard = $("#company_agent_card").val();
 		agent_card_type = "1";
 	}
-	findTransByIdData(strs[i]);
-	//获取的事项信息
-	var data1 = $("#application_form").serializeArray();
 	var data = $("#application_form").serialize();
+	var da = $("#material_form"+strs[i]).serializeArray();
+	data +="&"+ $("#material_form"+strs[i]).serialize();
 	data += "&applyPerson.applicationName=" + applicant_name +"&applicantDocumentType=" + applicant_card_type + "&legalRepresentative=" +legal_representative
 	     +"&applyPerson.applicationDocumentNumber=" + applicant_card + "&applyPerson.applicationPhone=" + applicant_telephone
 	     +"&applyPerson.applicationPostCode=" + applicant_postcode + "&applyPerson.applicationAddress=" + applicant_address
@@ -586,16 +594,20 @@ function submitApplication(){
 	$.ajax({
 		type : "post",
 		async: false, 
-		url : "",
+		url : "/JBXQInte/admin/onlinerep/doSaveMatter",
 		data : {
 			"data" : data
 		},
-		success : function(data){
-			data="1";
-			office_number = office_number+","+data;
-			office_number+= ",";
-			office_number=office_number.substring(1,office_number.length-1);
+		success : function(result){
+			var myobj=eval("(" + result.data + ")");
+			if(office_number=="" ||office_number ==null){
+				office_number = myobj.result;
+			}else{
+				office_number = office_number+","+myobj.result;
+			}
+			$("#office_number").html("");
 			$("#office_number").append(office_number);
+			
 		},
 		error : function(){
 			alert("个人提交申请系统出错，请联系管理员！");
@@ -605,14 +617,13 @@ function submitApplication(){
 	//返回值办件编号拼接
 	alert("测试的短信发送");
 	var office_numbers=$("#office_number").val();
-	 //sendSms(applicant_telephone,office_number);
+	 //sendSms(applicant_telephone,transMap.get(strs[i]),office_number);
 }
 
 /**
  * 申报成功短信提示
  */
-function sendSms(telephone,office_number){
-	var transName = $("#trans_name").text();
+function sendSms(telephone,transName,office_number){
 	$.ajax({
 		type : "post",
 		url : "f/front/interfaceweb/interfaceApplication/SmsPrompt",

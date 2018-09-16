@@ -307,18 +307,18 @@ function saveMaterial(){
 		async: false,
 		processData:false,
 		contentType:false,
-		url : "",
-		success : function (data){
-			data = data.substring(0,data.length-1);
-			if(data == "fail"){
+		url : "/JBXQInte/admin/onlinerep/doMatterUploadFile",
+		success : function (result){
+			//data = data.substring(0,data.length-1);
+			if(result.data == "fail"){
 				alert("上传材料失败，请重新上传");
 				$("#file").val("");
 				return;
 			}else{
 				 layer.msg('上传成功', {icon: 1});
-				 $("#getMaterialId-"+indextemp).val(data);
+				 $("#getMaterialId-"+indextemp).val(result.data);
 				 $("#file_view_"+indextemp).show();
-				 $("#file_view_"+indextemp).attr("href","javascript:openDialogView('附件管理','"+data+"','80%','80%',1)");			        
+				 $("#file_view_"+indextemp).attr("href","javascript:openDialogView('附件管理','"+result.data+"','80%','80%',1)");			        
 	        	 $("#getMode"+indextemp).val("由用户上传");
 	        	 $("#file_load").val("");
 	        	 HideFileBox();
@@ -531,7 +531,7 @@ function submitApplication(){
 	$.ajax({
 		type : "post",
 		async: false, 
-		url : "",
+		url : "/JBXQInte/admin/onlinerep/doSaveMatter",
 		data : {
 			"data" : data
 		},

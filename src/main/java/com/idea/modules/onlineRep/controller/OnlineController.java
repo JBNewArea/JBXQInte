@@ -387,9 +387,10 @@ public class OnlineController extends BaseController {
 	@RequestMapping(value = "/doSaveMatter", method = RequestMethod.POST)
 	public AjaxJson doSaveMatter(HttpServletRequest request, HttpServletResponse response){
 		AjaxJson ajaxJson = new AjaxJson();
-		String params= "";
+		String params= request.getParameter("data");
 		try {
-			HttpRequest.sendPost(OnlineUtils.INTERFACEURL+OnlineUtils.ONLINE_APPLICATION_URL+"save", params);
+			String res = HttpRequest.sendPost(OnlineUtils.INTERFACEURL+OnlineUtils.ONLINE_APPLICATION_URL+"save", params);
+			ajaxJson.setData(res);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

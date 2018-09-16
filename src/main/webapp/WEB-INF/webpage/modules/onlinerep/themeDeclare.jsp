@@ -26,9 +26,9 @@
     		 	 <a href="${adminPath}/onlinerep/matter">网上办事 > </a>
     		 </c:if>
     		 <c:if test="${type == 1}">
-    		 	 <a href="${adminPath}/onlinerep/themeMatter">主题办事 > </a>
+    		 	 <a href="${adminPath}/onlinerep/themeMatter">网上主题办事 > </a>
     		 </c:if>
-    		 <a href="#" class="on"><c:if test="${type == 0}">事项在线办理</c:if><c:if test="${type == 1}">主题事项在线办理</c:if></a>
+    		 <a href="#" class="on"><c:if test="${type == 0}">主题事项在线办理</c:if><c:if test="${type == 1}">主题事项在线办理</c:if></a>
 </div>
 <div class="content">
     <div class="bl_path">
@@ -94,11 +94,11 @@
             <input type="hidden" name="trans_name" id="trans_name"/>
             <table cellpadding="0" cellspacing="0">
                 <tr>
-                    <td style="width: 160px;">申报主题事项</td>
+                    <td style="width: 160px;">申报主题</td>
                     <td style="width: 720px;" id="themeName"></td>
                 </tr>
-                <tr>
-                    <td style="width: 160px;">事项列表</td>
+                 <tr>
+                    <td style="width: 160px;">申报事项</td>
                     <td style="width: 720px;" id="transNames"></td>
                 </tr>
                 <tr>
@@ -403,10 +403,11 @@
         <button type="button"><a href="${adminPath}/onlinerep/themeMatter">取消办理</a></button>
         <button type="button" style="border: none; background-color: #0077c9; color: white" class="btn2" id="btn2">下一步</button>
     </div>
+     </form>
     <!--在线办理第三步-->
-    <div class="bl_box3" style="display: none">
+    <div class="bl_box3" style="display: none" id="material_table">
         <h2><i></i>申请材料</h2>
-        <table cellpadding="0" cellspacing="0">
+        <table cellpadding="0" cellspacing="0" >
             <thead>
             	<tr>
                 <td style="width: 70px;">序号</td>
@@ -424,10 +425,11 @@
             </tr> -->
             </tbody>
         </table>
-        <button type="button"><a href="${adminPath}/onlinerep/themeMatter">取消办理</a></button>
-        <button type="button" style="border: none; background-color: #0077c9; color: white" class="btn3">下一步</button>
     </div>
-    </form>
+    <div class="bl_box3" style="display: none">
+	    <button type="button"><a href="${adminPath}/onlinerep/themeMatter">取消办理</a></button>
+	    <button type="button" style="border: none; background-color: #0077c9; color: white" class="btn3">下一步</button>
+    </div>
     <iframe id="application_iframe" name="application_iframe" style="display:none"></iframe>
     <!--在线办理第四步-->
     <div class="bl_box4" style="display: none">
