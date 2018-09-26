@@ -175,7 +175,6 @@
                 /weixin/mp/front/** = anon
                 ${admin.url.prefix}/logout = logout
                 ${admin.url.prefix}/login  = jCaptchaValidate,authc
-                ${admin.url.prefix}/supervise/** = onlineSession
                 ${admin.url.prefix}/onlinerep/** = onlineSession
                 ${admin.url.prefix}/xjlu/** = onlineSession
                 /** = sysUser,onlineSession,user,perms,roles

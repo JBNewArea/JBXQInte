@@ -159,5 +159,4 @@ public class XJLUser  extends DataEntity<String> {
 	public void setActivateType(String activateType) {
 		this.activateType = activateType;
 	}
-	
 }
